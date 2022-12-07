@@ -184,3 +184,4 @@ function printNodeTree(node: FileSystemNode, dirStack: Directory[] = []) {
     console.log(`${indent}- ${node.name} (file, size=${node.size} )`)
   }
 }
+
