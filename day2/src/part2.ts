@@ -16,13 +16,9 @@ function sanitate(data:string[]){
 	}
 	return newData
 }
-// A for Rock, B for Paper, and C for Scissors
-// X for Rock, Y for Paper, and Z for Scissors
-function play(type:string){
 
-}
-// 1 for Rock, 2 for Paper, and 3 for Scissors
-// 0 if you lost, 3 if the round was a draw, and 6 if you won)
+// X means you need to lose, Y means you need to end the round in a draw, 
+// and Z means you need to win
 function main(arr:string[]){
 	let start = 0
 	for(const el of arr){
@@ -36,11 +32,11 @@ function main(arr:string[]){
 		switch(move){
 			case 'X':
 				if(type == 'A'){
-					temp = d + 1;
+					temp = l + 3;
 				} else if(type == 'B'){
 					temp = l + 1;
 				} else if(type == 'C'){
-					temp = w + 1;
+					temp = l + 2;
 				} else {
 					console.error('check input ', type, move)
 				}
@@ -50,11 +46,11 @@ function main(arr:string[]){
 				break;
 			case 'Y': 
 				if(type == 'A'){
-					temp = w + 2;
+					temp = d + 1;
 				} else if(type == 'B'){
 					temp = d + 2;
 				} else if(type == 'C'){
-					temp = l + 2;
+					temp = d + 3;
 				} else {
 					console.error('check input ', type, move)
 				}
@@ -64,11 +60,11 @@ function main(arr:string[]){
 				break;
 			case 'Z': 
 				if(type == 'A'){
-					temp = l + 3;
+					temp = w + 2;
 				} else if(type == 'B'){
 					temp = w + 3;
 				} else if(type == 'C'){
-					temp = d + 3;
+					temp = w + 1;
 				} else {
 					console.error('check input ', type, move)
 				}

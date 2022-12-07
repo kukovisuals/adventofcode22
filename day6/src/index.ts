@@ -1,63 +1,37 @@
 import { Container } from './components/types';
 import returnData from './components/fileInput';
 
-let containers:Container = {
-	'1': ['[M]','[J]','[C]','[B]','[F]','[R]','[L]','[H]'],
-	'2': ['[Z]','[C]','[D]'],
-	'3': ['[H]','[J]','[F]','[C]','[N]','[G]','[W]'],
-	'4': ['[P]','[J]','[D]','[M]','[T]','[S]','[B]'],
-	'5': ['[N]','[C]','[D]','[R]','[J]'],
-	'6': ['[W]','[L]','[D]','[Q]','[P]','[J]','[G]','[Z]'],
-	'7': ['[P]','[Z]','[T]','[F]','[R]','[H]'],
-	'8': ['[L]','[V]','[M]','[G]'],
-	'9': ['[C]','[B]','[G]','[P]','[F]','[Q]','[R]','[J]'],
+
+// identify the 1 position where the 4 most recently received characters were all different
+function find(arr: string[]){
+	for(let i = 0; i < arr.length; i++){
+
+		for(let j = i+1; j < arr.length; j++){
+		 	// console.log(i,'winner -> ',arr[i], arr[j])
+			if(arr[i] === arr[j]){
+				return false
+			}
+		}
+	}
+	return true
 }
-
-
-function main(str: string[]){
-	let count = 0
-	for(const el of str){
-		const wagon: string[] =  el.split(' ')
-		
-		let iterate = 0
-		let goingTo: string = '1';
-		let selectContainer: string = '1';
-
-		for(let i = 0; i < wagon.length; i++){
-			iterate = +wagon[1]
-			selectContainer = wagon[3]
-			goingTo = wagon[5]	
+function main(str: string[] | any){
+	let count = [];
+	for(let i = 0; i < str.length-1; i++){
+		count.push(str[i])
+		if(count.length > 13){
+			if(find(count)){
+				console.log('**********************************************')
+				console.log(i + 1)
+				console.log('**********************************************')
+				return i + 1
+			}
+			count.shift()
 		}
-
-		let pops = iterate
-		let movedContainer:any = []
-		while(pops > 0 ){
-			const stack = containers[selectContainer]?.pop()
-			movedContainer.push(stack)
-			pops--	
-		}
-		const containerAdded = containers[goingTo]?.concat(movedContainer);
-		containers[goingTo] = containerAdded; 
 	}
-
-	let finalContainer = []
-	for(const key of Object.keys(containers)){
-		const stack = containers[key].pop();
-		const filterStack = stack?.replace(/\W/g, '')
-
-		finalContainer.push(filterStack)
-	}
-	console.log('Final count -> ',  containers)
-	
-	console.log('**********************************************')
-	console.log('**********************************************')
-	console.log(finalContainer.join(''))
-	console.log('**********************************************')
-	console.log('**********************************************')
 }
 
 const sanitatedData = returnData()
-
 
 async function something(){
 	const wtf = await sanitatedData

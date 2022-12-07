@@ -5,7 +5,7 @@ function read(){
 
 		fs.readFile('info.txt', 'utf8', (err:any, data:any) => {
 			if (err) throw err;
-			const newData = data.toString().split('\r\n');
+			const newData = data.toString();
 			const cleanData = sanitate(newData)
 			//console.log(cleanData)
 			resolve(cleanData)
@@ -16,17 +16,16 @@ function read(){
 async function returnData(): Promise<string[]>{
 	console.log('calling')
 	const result = await read()
-	console.log(result)
+	//console.log(result)
     return result
 }
 
 function sanitate(data:string[]){
 	let newData = []
 	for(const el of data){
-		newData.push(el.split(/[a-z]/).join(''))
+		newData.push(el)
 	}
 	return newData
 }
-
 
 export default returnData;
