@@ -1,7 +1,6 @@
 import { Container } from './components/types';
 import returnData from './components/fileInput';
 
-
 // identify the 1 position where the 4 most recently received characters were all different
 function find(arr: string[]){
 	for(let i = 0; i < arr.length; i++){
@@ -31,12 +30,5 @@ function main(str: string[] | any){
 	}
 }
 
-const sanitatedData = returnData()
-
-async function something(){
-	const wtf = await sanitatedData
-	main(wtf)
-}
-something()
-
-console.log(sanitatedData)
+returnData()
+	.then((d:string[]) => main(d))
