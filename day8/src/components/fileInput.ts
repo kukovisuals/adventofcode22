@@ -4,7 +4,7 @@ function read(){
 	return new Promise<string[]> ((resolve:any) => {
 		fs.readFile('info.txt', 'utf8', (err:any, data:any) => {
 			if (err) throw err;
-			const newData = data.toString().split('\r\n');
+			const newData = data.toString().split('\n');
 			const cleanData = sanitate(newData)
 			//console.log(cleanData)
 			resolve(cleanData)
