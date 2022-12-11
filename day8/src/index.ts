@@ -34,23 +34,51 @@ class Graph{
 }
 const g = new Graph();
 
-function east(row:string[], tree:string, index: number){
-	// Get elements from left side
-	let flip = false
+function east(row:string[], tree:number, index: number){
+	let found = true
+	//console.log(row, 'tree ', tree, 'index ', index)
 	for(let r = 0; r < row.length; r++){
-		console.log(row, tree, index)
-	}
-	g.visibleTress++
-}
-
-function main(str: string[] | any){
-	const size = ( (str.length-1) * 2) + ((str[0].length-1) * 2)
-	g.visibles(size)
-
-	for(let i = 0; i<str.length-1; i++){
-		for(let j = 0; j < str.length-1; j++){
-			east(str[i+1], str[i + 1][j + 1], j + 1)
+		// get the left side
+		if( r === index ) return found
+		if(+row[r] >= tree){
+			found = false
+			return found
 		}
+	}
+	// g.visibleTress++
+}
+function west(row:string[], tree:number, index: number){
+	let found = true
+	//console.log(row, 'tree ', tree, 'index ', index)
+	for(let r = index + 1; r < row.length; r++){
+		// get the left side
+		if(+row[r] >= tree){
+			found = false
+			return found
+		}
+	}
+	return found
+}
+function north(arr:string[], tree:number, row: number, col:number){
+	let found = true
+	for(let r = row; r > 0; r--){
+		console.log(arr, 'tree ', tree, 'up ', +arr[1][1], 'col', col, 'index', row, r)
+		// get the left side
+		if(+arr[r][col] >= tree){
+			found = false
+			return found
+		}
+	}
+	return found
+}
+function main(str: string[] | any){
+	for(let row = 0; row<str.length-1; row++){
+		for(let col = 0; col < str.length-1; col++){
+			const e = east(str[row+1], +str[row + 1][col + 1], col + 1)
+			const w = west(str[row+1], +str[row + 1][col + 1], col + 1)
+		}
+			const n = north(str, +str[row + 1][col], row - 1, col)
+			console.log(n)
 	}
 	console.log(str,g)
 }
